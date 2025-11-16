@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Asset Transactions
+    .btn-toolbar.mb-2.mb-md-0
+      a.btn.btn-sm.btn-outline-primary(href='/transactions/issue')
+        i.bi.bi-box-arrow-right
+        | Issue Asset
+      a.btn.btn-sm.btn-outline-success(href='/transactions/return', style='margin-left: 5px;')
+        i.bi.bi-box-arrow-in-left
+        | Return Asset
+      a.btn.btn-sm.btn-outline-danger(href='/transactions/scrap', style='margin-left: 5px;')
+        i.bi.bi-trash
+        | Scrap Asset
+
+  .card
+    .card-header
+      h5.mb-0 Transaction History
+    .card-body
+      table.table.table-striped.datatable#transactionTable
+        thead
+          tr
+            th Asset Code
+            th Asset Name
+            th Transaction Type
+            th Employee
+            th Branch
+            th Date
+            th Notes
+        tbody
+          if transactions && transactions.length > 0
+            each transaction in transactions
+              tr
+                td= transaction.Asset ? transaction.Asset.asset_code : '-'
+                td= transaction.Asset ? transaction.Asset.name : '-'
+                td
+                  case transaction.transaction_type
+                    when 'issue'
+                      span.badge.bg-primary Issue
+                    when 'return'
+                      span.badge.bg-success Return
+                    when 'scrap'
+                      span.badge.bg-danger Scrap
+                td= transaction.Employee ? transaction.Employee.full_name : '-'
+                td= transaction.Branch ? transaction.Branch.name : '-'
+                td= transaction.transaction_date ? transaction.transaction_date.toISOString().split('T')[0] : '-'
+                td= transaction.notes || '-'
+
+  script.
+    $(document).ready(function() {
+      $('#transactionTable').DataTable({
+        "pageLength": 25,
+        "responsive": true,
+        "order": [[ 5, "desc" ]],
+        "columnDefs": [
+          { "orderable": false, "targets": -1 }
+        ]
+      });
+    });

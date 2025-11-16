@@ -1,0 +1,59 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Edit Asset
+
+  .card
+    .card-header
+      h5.mb-0 Asset Details
+    .card-body
+      form(action=`/assets/${asset.id}`, method='POST')
+        input(type='hidden', name='_method', value='PUT')
+        .row
+          .col-md-6
+            .mb-3
+              label(for='asset_code', class='form-label') Asset Code *
+              input(type='text', class='form-control', id='asset_code', name='asset_code', value=asset.asset_code, required)
+          .col-md-6
+            .mb-3
+              label(for='name', class='form-label') Asset Name *
+              input(type='text', class='form-control', id='name', name='name', value=asset.name, required)
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='category_id', class='form-label') Category *
+              select(class='form-select', id='category_id', name='category_id', required)
+                option(value='') Select Category
+                if categories && categories.length > 0
+                  each category in categories
+                    option(value=category.id, selected=(asset.category_id === category.id ? true : false))= category.name
+          .col-md-6
+            .mb-3
+              label(for='branch_id', class='form-label') Branch *
+              select(class='form-select', id='branch_id', name='branch_id', required)
+                option(value='') Select Branch
+                if branches && branches.length > 0
+                  each branch in branches
+                    option(value=branch.id, selected=(asset.branch_id === branch.id ? true : false))= branch.name
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='purchase_date', class='form-label') Purchase Date
+              input(type='date', class='form-control', id='purchase_date', name='purchase_date', value=asset.purchase_date ? asset.purchase_date.toISOString().split('T')[0] : '')
+          .col-md-6
+            .mb-3
+              label(for='purchase_value', class='form-label') Purchase Value
+              input(type='number', class='form-control', id='purchase_value', name='purchase_value', step='0.01', value=asset.purchase_value || '')
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='current_value', class='form-label') Current Value
+              input(type='number', class='form-control', id='current_value', name='current_value', step='0.01', value=asset.current_value || '')
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/assets') Cancel
+          button(type='submit', class='btn.btn-primary') Update Asset

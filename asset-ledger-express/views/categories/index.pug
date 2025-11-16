@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Asset Category Master
+    .btn-toolbar.mb-2.mb-md-0
+      a.btn.btn-sm.btn-outline-primary(href='/categories/create')
+        i.bi.bi-plus-lg
+        | Add Category
+
+  .card
+    .card-header
+      h5.mb-0 Category List
+    .card-body
+      table.table.table-striped.datatable#categoryTable
+        thead
+          tr
+            th Name
+            th Description
+            th Actions
+        tbody
+          if categories && categories.length > 0
+            each category in categories
+              tr
+                td= category.name
+                td= category.description || '-'
+                td
+                  a.btn.btn-sm.btn-outline-secondary(href=`/categories/${category.id}/edit`)
+                    i.bi.bi-pencil
+                  form(action=`/categories/${category.id}/delete`, method='POST', style='display: inline;')
+                    button.btn.btn-sm.btn-outline-danger(type='submit', onclick='return confirm("Are you sure you want to delete this category?")')
+                      i.bi.bi-trash
+
+  script.
+    $(document).ready(function() {
+      $('#categoryTable').DataTable({
+        "pageLength": 25,
+        "responsive": true,
+        "order": [[ 0, "asc" ]],
+        "columnDefs": [
+          { "orderable": false, "targets": -1 }
+        ]
+      });
+    });

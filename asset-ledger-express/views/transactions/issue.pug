@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Issue Asset
+
+  .card
+    .card-header
+      h5.mb-0 Issue Asset Form
+    .card-body
+      form(action='/transactions/issue', method='POST')
+        .row
+          .col-md-6
+            .mb-3
+              label(for='asset_id', class='form-label') Asset *
+              select(class='form-select', id='asset_id', name='asset_id', required)
+                option(value='') Select Asset
+                if assets && assets.length > 0
+                  each asset in assets
+                    option(value=asset.id)= asset.asset_code + ' - ' + asset.name
+          .col-md-6
+            .mb-3
+              label(for='employee_id', class='form-label') Employee *
+              select(class='form-select', id='employee_id', name='employee_id', required)
+                option(value='') Select Employee
+                if employees && employees.length > 0
+                  each employee in employees
+                    option(value=employee.id)= employee.employee_code + ' - ' + employee.full_name
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='branch_id', class='form-label') Branch *
+              select(class='form-select', id='branch_id', name='branch_id', required)
+                option(value='') Select Branch
+                if branches && branches.length > 0
+                  each branch in branches
+                    option(value=branch.id)= branch.name
+          .col-md-6
+            .mb-3
+              label(for='notes', class='form-label') Notes
+              textarea(class='form-control', id='notes', name='notes', rows='3')
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/transactions') Cancel
+          button(type='submit', class='btn.btn-primary') Issue Asset

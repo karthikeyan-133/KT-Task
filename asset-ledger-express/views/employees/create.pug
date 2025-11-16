@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Add Employee
+
+  .card
+    .card-header
+      h5.mb-0 Employee Details
+    .card-body
+      form(action='/employees', method='POST')
+        .row
+          .col-md-6
+            .mb-3
+              label(for='employee_code', class='form-label') Employee Code *
+              input(type='text', class='form-control', id='employee_code', name='employee_code', required)
+          .col-md-6
+            .mb-3
+              label(for='full_name', class='form-label') Full Name *
+              input(type='text', class='form-control', id='full_name', name='full_name', required)
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='email', class='form-label') Email
+              input(type='email', class='form-control', id='email', name='email')
+          .col-md-6
+            .mb-3
+              label(for='phone', class='form-label') Phone
+              input(type='text', class='form-control', id='phone', name='phone')
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='designation', class='form-label') Designation
+              input(type='text', class='form-control', id='designation', name='designation')
+          .col-md-6
+            .mb-3
+              label(for='department', class='form-label') Department
+              input(type='text', class='form-control', id='department', name='department')
+        
+        .row
+          .col-md-6
+            .mb-3
+              label(for='branch_id', class='form-label') Branch
+              select(class='form-select', id='branch_id', name='branch_id')
+                option(value='') Select Branch
+                if branches && branches.length > 0
+                  each branch in branches
+                    option(value=branch.id)= branch.name
+          .col-md-6
+            .mb-3
+              label(for='is_active', class='form-label') Status
+              select(class='form-select', id='is_active', name='is_active')
+                option(value='true', selected) Active
+                option(value='false') Inactive
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/employees') Cancel
+          button(type='submit', class='btn.btn-primary') Save Employee

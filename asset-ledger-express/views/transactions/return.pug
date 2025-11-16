@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Return Asset
+
+  .card
+    .card-header
+      h5.mb-0 Return Asset Form
+    .card-body
+      form(action='/transactions/return', method='POST')
+        .mb-3
+          label(for='asset_id', class='form-label') Asset *
+          select(class='form-select', id='asset_id', name='asset_id', required)
+            option(value='') Select Asset
+            if assets && assets.length > 0
+              each asset in assets
+                option(value=asset.id)= asset.asset_code + ' - ' + asset.name + ' (Issued to: ' + (asset.Employee ? asset.Employee.full_name : 'Unknown') + ')'
+        
+        .mb-3
+          label(for='notes', class='form-label') Reason for Return
+          textarea(class='form-control', id='notes', name='notes', rows='3', placeholder='e.g., Upgrade, Repair, Resignation, etc.')
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/transactions') Cancel
+          button(type='submit', class='btn.btn-success') Return Asset

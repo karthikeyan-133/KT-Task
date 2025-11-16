@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.display-4 Asset Ledger Dashboard
+    .btn-toolbar.mb-2.mb-md-0
+      .btn-group.me-2
+        a.btn.btn-sm.btn-outline-secondary(href='/assets/create')
+          i.bi.bi-plus-lg
+          | Add Asset
+        a.btn.btn-sm.btn-outline-secondary(href='/employees/create')
+          i.bi.bi-person-plus
+          | Add Employee
+
+  .row
+    .col-md-3
+      .card.text-white.bg-primary.mb-3
+        .card-header Assets
+        .card-body
+          h5.card-title= assetCount
+          p.card-text Total assets in the system
+    .col-md-3
+      .card.text-white.bg-success.mb-3
+        .card-header In Stock
+        .card-body
+          h5.card-title= stockCount
+          p.card-text Assets available for issue
+    .col-md-3
+      .card.text-white.bg-warning.mb-3
+        .card-header Issued
+        .card-body
+          h5.card-title= issuedCount
+          p.card-text Assets currently issued
+    .col-md-3
+      .card.text-white.bg-danger.mb-3
+        .card-header Scrapped
+        .card-body
+          h5.card-title= scrappedCount
+          p.card-text Assets marked as scrapped
+
+  .row
+    .col-md-6
+      .card.mb-4
+        .card-header
+          i.bi.bi-people.me-2
+          | Recent Employees
+        .card-body
+          table.table.table-striped.datatable
+            thead
+              tr
+                th Employee Code
+                th Name
+                th Department
+                th Status
+            tbody
+              tr
+                td(colspan='4') No employees found
+
+    .col-md-6
+      .card.mb-4
+        .card-header
+          i.bi.bi-laptop.me-2
+          | Recent Assets
+        .card-body
+          table.table.table-striped.datatable
+            thead
+              tr
+                th Asset Code
+                th Name
+                th Category
+                th Status
+            tbody
+              tr
+                td(colspan='4') No assets found
+
+  

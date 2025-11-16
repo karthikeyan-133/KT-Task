@@ -1,0 +1,47 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 View Employee
+    .btn-toolbar.mb-2.mb-md-0
+      a.btn.btn-sm.btn-outline-primary(href=`/employees/${employee.id}/edit`)
+        i.bi.bi-pencil
+        | Edit
+      a.btn.btn-sm.btn-outline-secondary(href='/employees')
+        i.bi.bi-arrow-left
+        | Back
+
+  .card
+    .card-header
+      h5.mb-0 Employee Information
+    .card-body
+      .row
+        .col-md-6
+          p
+            strong Employee Code: 
+            span= employee.employee_code
+          p
+            strong Full Name: 
+            span= employee.full_name
+          p
+            strong Email: 
+            span= employee.email || '-'
+          p
+            strong Phone: 
+            span= employee.phone || '-'
+        .col-md-6
+          p
+            strong Designation: 
+            span= employee.designation || '-'
+          p
+            strong Department: 
+            span= employee.department || '-'
+          p
+            strong Branch: 
+            span= employee.Branch ? employee.Branch.name : '-'
+          p
+            strong Status: 
+            if employee.is_active
+              span.badge.bg-success Active
+            else
+              span.badge.bg-secondary Inactive

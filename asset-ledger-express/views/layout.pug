@@ -1,0 +1,90 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css", rel="stylesheet")
+    link(href="https://cdn.datatables.net/2.3.5/css/dataTables.bootstrap5.min.css", rel="stylesheet")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css", rel="stylesheet")
+    link(href="/css/style.css", rel="stylesheet")
+    style.
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        background-color: #f8f9fa;
+        border-right: 1px solid #dee2e6;
+        overflow-y: auto;
+      }
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+      .nav-link.active {
+        background-color: #0d6efd;
+        color: white !important;
+      }
+  body
+    .container-fluid
+      .row
+        // Sidebar
+        .col-md-3.col-lg-2.d-md-block.sidebar.bg-light
+          .position-sticky.pt-3
+            .d-flex align-items-center px-3
+              i.bi.bi-box-seam.fs-4.me-2
+              h4 Asset Ledger
+            hr
+            ul.nav.flex-column
+              li.nav-item
+                a.nav-link(href="/", class=(title === 'Asset Ledger Dashboard' ? 'active' : ''))
+                  i.bi.bi-speedometer2.me-2
+                  | Dashboard
+              li.nav-item
+                a.nav-link(href="/employees", class=(title.includes('Employee') ? 'active' : ''))
+                  i.bi.bi-people.me-2
+                  | Employees
+              li.nav-item
+                a.nav-link(href="/assets", class=(title.includes('Asset') && !title.includes('Category') && title !== 'Stock View' ? 'active' : ''))
+                  i.bi.bi-laptop.me-2
+                  | Assets
+              li.nav-item.ms-4
+                a.nav-link(href="/assets/stock", class=(title === 'Stock View' ? 'active' : '')) Stock View
+              li.nav-item
+                a.nav-link(href="/categories", class=(title.includes('Category') ? 'active' : ''))
+                  i.bi.bi-folder.me-2
+                  | Categories
+              li.nav-item
+                a.nav-link(href="/branches", class=(title.includes('Branch') ? 'active' : ''))
+                  i.bi.bi-building.me-2
+                  | Branches
+              li.nav-item
+                a.nav-link(href="/transactions", class=(title.includes('Transaction') ? 'active' : ''))
+                  i.bi.bi-arrow-left-right.me-2
+                  | Transactions
+              li.nav-item.ms-4
+                a.nav-link(href="/transactions/issue") Issue Asset
+              li.nav-item.ms-4
+                a.nav-link(href="/transactions/return") Return Asset
+              li.nav-item.ms-4
+                a.nav-link(href="/transactions/scrap") Scrap Asset
+        
+        // Main content
+        .col-md-9.ms-sm-auto.col-lg-10.px-md-4.main-content
+          block content
+
+    script(src="https://code.jquery.com/jquery-3.7.1.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")
+    script(src="https://cdn.datatables.net/2.3.5/js/dataTables.min.js")
+    script(src="https://cdn.datatables.net/2.3.5/js/dataTables.bootstrap5.min.js")
+    script.
+      $(document).ready(function() {
+        if ($('.datatable').length) {
+          $('.datatable').DataTable({
+            "pageLength": 25,
+            "responsive": true
+          });
+        }
+      });

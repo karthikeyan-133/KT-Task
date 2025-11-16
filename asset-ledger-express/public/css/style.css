@@ -1,0 +1,54 @@
+/* Custom styles for Asset Ledger */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+}
+
+.main-content {
+  background-color: #fff;
+}
+
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 0.75em;
+}
+
+.btn-toolbar .btn {
+  margin-left: 0.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.nav-link.active {
+  background-color: #0d6efd;
+  color: white !important;
+}
+
+.dataTables_wrapper {
+  padding-top: 1rem;
+}
+
+.dataTables_length,
+.dataTables_filter {
+  margin-bottom: 1rem;
+}
+
+.dataTables_info,
+.dataTables_paginate {
+  margin-top: 1rem;
+}

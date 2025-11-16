@@ -1,0 +1,105 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Asset History
+    a.btn.btn-secondary(href='/assets') Back to Assets
+
+  .card.mb-4
+    .card-header
+      h5.mb-0 Asset Details
+    .card-body
+      .row
+        .col-md-6
+          p
+            strong Asset Code: 
+            span ABC123
+          p
+            strong Name: 
+            span Dell Laptop
+          p
+            strong Category: 
+            span Laptop
+          p
+            strong Purchase Date: 
+            span 2023-05-15
+          p
+            strong Purchase Value: 
+            span $1,200.00
+        .col-md-6
+          p
+            strong Current Value: 
+            span $800.00
+          p
+            strong Status: 
+            span.badge.bg-warning Issued
+          p
+            strong Branch: 
+            span Main Office
+          p
+            strong Issued To: 
+            span John Smith
+          p
+            strong Issued Date: 
+            span 2023-06-01
+
+  .card
+    .card-header
+      h5.mb-0 Transaction History
+    .card-body
+      table.table.table-striped.datatable#historyTable
+        thead
+          tr
+            th Transaction Type
+            th Employee
+            th Branch
+            th Date
+            th Notes
+        tbody
+          tr
+            td
+              span.badge.bg-primary Issue
+            td John Smith
+            td Main Office
+            td 2023-06-01
+            td Initial issue to employee
+          tr
+            td
+              span.badge.bg-success Return
+            td John Smith
+            td Main Office
+            td 2023-08-15
+            td Returned for repair
+          tr
+            td
+              span.badge.bg-primary Issue
+            td John Smith
+            td Main Office
+            td 2023-08-20
+            td Re-issued after repair
+          tr
+            td
+              span.badge.bg-success Return
+            td John Smith
+            td Main Office
+            td 2023-12-01
+            td Upgrade to newer model
+          tr
+            td
+              span.badge.bg-primary Issue
+            td Jane Doe
+            td Main Office
+            td 2023-12-05
+            td Issued to new employee
+
+  script.
+    $(document).ready(function() {
+      $('#historyTable').DataTable({
+        "pageLength": 25,
+        "responsive": true,
+        "order": [[ 3, "desc" ]],
+        "columnDefs": [
+          { "orderable": false, "targets": -1 }
+        ]
+      });
+    });

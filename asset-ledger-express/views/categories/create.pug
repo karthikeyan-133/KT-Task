@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Add Category
+
+  .card
+    .card-header
+      h5.mb-0 Category Details
+    .card-body
+      form(action='/categories', method='POST')
+        .mb-3
+          label(for='name', class='form-label') Category Name *
+          input(type='text', class='form-control', id='name', name='name', required)
+        
+        .mb-3
+          label(for='description', class='form-label') Description
+          textarea(class='form-control', id='description', name='description', rows='3')
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/categories') Cancel
+          button(type='submit', class='btn.btn-primary') Save Category

@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 View Asset
+    .btn-toolbar.mb-2.mb-md-0
+      a.btn.btn-sm.btn-outline-primary(href=`/assets/${asset.id}/edit`)
+        i.bi.bi-pencil
+        | Edit
+      a.btn.btn-sm.btn-outline-secondary(href='/assets')
+        i.bi.bi-arrow-left
+        | Back
+
+  .card.mb-4
+    .card-header
+      h5.mb-0 Asset Information
+    .card-body
+      .row
+        .col-md-6
+          p
+            strong Asset Code: 
+            span= asset.asset_code
+          p
+            strong Name: 
+            span= asset.name
+          p
+            strong Category: 
+            span= asset.AssetCategory ? asset.AssetCategory.name : '-'
+          p
+            strong Purchase Date: 
+            span= asset.purchase_date ? asset.purchase_date.toISOString().split('T')[0] : '-'
+          p
+            strong Purchase Value: 
+            span= asset.purchase_value ? '$' + asset.purchase_value : '-'
+        .col-md-6
+          p
+            strong Current Value: 
+            span= asset.current_value ? '$' + asset.current_value : '-'
+          p
+            strong Status: 
+            case asset.status
+              when 'stock'
+                span.badge.bg-success Stock
+              when 'issued'
+                span.badge.bg-warning Issued
+              when 'scrapped'
+                span.badge.bg-danger Scrapped
+          p
+            strong Branch: 
+            span= asset.Branch ? asset.Branch.name : '-'
+          if asset.Employee
+            p
+              strong Issued To: 
+              span= asset.Employee.full_name
+          if asset.issued_at
+            p
+              strong Issued Date: 
+              span= asset.issued_at.toISOString().split('T')[0]
+
+  .d-flex.justify-content-between
+    a.btn.btn-outline-info(href=`/assets/${asset.id}/history`)
+      i.bi.bi-clock-history
+      | View History
+    form(action=`/assets/${asset.id}/delete`, method='POST', style='display: inline;')
+      button.btn.btn-outline-danger(type='submit', onclick='return confirm("Are you sure you want to delete this asset?")')
+        i.bi.bi-trash
+        | Delete Asset

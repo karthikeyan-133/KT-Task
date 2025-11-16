@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Edit Branch
+
+  .card
+    .card-header
+      h5.mb-0 Branch Details
+    .card-body
+      form(action=`/branches/${branch.id}`, method='POST')
+        input(type='hidden', name='_method', value='PUT')
+        .mb-3
+          label(for='name', class='form-label') Branch Name *
+          input(type='text', class='form-control', id='name', name='name', value=branch.name, required)
+        
+        .mb-3
+          label(for='location', class='form-label') Location
+          textarea(class='form-control', id='location', name='location', rows='3')= branch.location || ''
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/branches') Cancel
+          button(type='submit', class='btn.btn-primary') Update Branch

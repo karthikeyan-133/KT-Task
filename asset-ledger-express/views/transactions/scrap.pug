@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Scrap Asset
+
+  .card
+    .card-header
+      h5.mb-0 Scrap Asset Form
+    .card-body
+      form(action='/transactions/scrap', method='POST')
+        .mb-3
+          label(for='asset_id', class='form-label') Asset *
+          select(class='form-select', id='asset_id', name='asset_id', required)
+            option(value='') Select Asset
+            if assets && assets.length > 0
+              each asset in assets
+                option(value=asset.id)= asset.asset_code + ' - ' + asset.name + ' (Status: ' + asset.status + ')'
+        
+        .mb-3
+          label(for='notes', class='form-label') Reason for Scrap
+          textarea(class='form-control', id='notes', name='notes', rows='3', placeholder='e.g., Obsolete, Damaged beyond repair, etc.')
+        
+        .d-flex.justify-content-between
+          a.btn.btn-secondary(href='/transactions') Cancel
+          button(type='submit', class='btn.btn-danger', onclick='return confirm("Are you sure you want to scrap this asset? This action cannot be undone.")') Scrap Asset

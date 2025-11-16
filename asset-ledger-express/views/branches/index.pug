@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Branch Master
+    .btn-toolbar.mb-2.mb-md-0
+      a.btn.btn-sm.btn-outline-primary(href='/branches/create')
+        i.bi.bi-plus-lg
+        | Add Branch
+
+  .card
+    .card-header
+      h5.mb-0 Branch List
+    .card-body
+      table.table.table-striped.datatable#branchTable
+        thead
+          tr
+            th Name
+            th Location
+            th Actions
+        tbody
+          if branches && branches.length > 0
+            each branch in branches
+              tr
+                td= branch.name
+                td= branch.location || '-'
+                td
+                  a.btn.btn-sm.btn-outline-secondary(href=`/branches/${branch.id}/edit`)
+                    i.bi.bi-pencil
+                  form(action=`/branches/${branch.id}/delete`, method='POST', style='display: inline;')
+                    button.btn.btn-sm.btn-outline-danger(type='submit', onclick='return confirm("Are you sure you want to delete this branch?")')
+                      i.bi.bi-trash
+
+  script.
+    $(document).ready(function() {
+      $('#branchTable').DataTable({
+        "pageLength": 25,
+        "responsive": true,
+        "order": [[ 0, "asc" ]],
+        "columnDefs": [
+          { "orderable": false, "targets": -1 }
+        ]
+      });
+    });

@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+    h1.h2 Stock View
+    p.text-muted Bird's eye view of assets in stock
+
+  .row
+    .col-md-12
+      .card
+        .card-header
+          h5.mb-0 Assets in Stock by Branch
+        .card-body
+          table.table.table-striped.datatable#stockTable
+            thead
+              tr
+                th Branch
+                th Total Assets
+                th Total Value
+            tbody
+              if branches && branches.length > 0
+                each branch in branches
+                  tr
+                    td= branch.name
+                    td= branch.assetCount || 0
+                    td $#{branch.totalValue || '0.00'}
+            tfoot
+              tr.table-active
+                th Total
+                th= totalAssets || 0
+                th $#{totalValue ? totalValue.toFixed(2) : '0.00'}
+
+  script.
+    $(document).ready(function() {
+      $('#stockTable').DataTable({
+        "pageLength": 25,
+        "responsive": true,
+        "order": [[ 2, "desc" ]],
+        "columnDefs": [
+          { "orderable": false, "targets": -1 }
+        ]
+      });
+    });
